@@ -1,0 +1,42 @@
+This database tracks customers, products, and orders for an e-commerce company.
+
+TABLE: customers
+- customer_id: unique integer ID for each customer
+- name: full name of the customer
+- email: customer email address (unique)
+- city: city where the customer lives
+- country: country of the customer
+- created_at: date the customer account was created
+
+TABLE: products
+- product_id: unique integer ID for each product
+- name: product name
+- category: product category such as Electronics, Furniture, Stationery
+- price: product price in USD
+- stock: number of units available in inventory
+
+TABLE: orders
+- order_id: unique integer ID for each order
+- customer_id: references customers.customer_id — who placed the order
+- product_id: references products.product_id — what was ordered
+- quantity: how many units were ordered
+- order_date: date the order was placed
+- status: current order status — one of: pending, shipped, delivered, cancelled
+
+RELATIONSHIPS:
+- orders.customer_id → customers.customer_id
+- orders.product_id  → products.product_id
+- To get customer name with order, JOIN orders with customers on customer_id
+- To get product name with order, JOIN orders with products on product_id
+- To get full order details, JOIN all three tables together
+
+EXAMPLE QUERIES AND THEIR SQL LOGIC:
+- "Show all delivered orders" → filter orders WHERE status = 'delivered'
+- "Top customers by spend" → JOIN orders + products, SUM(quantity * price), GROUP BY customer
+- "Products low on stock" → SELECT from products WHERE stock < 50
+- "Orders in March 2024" → filter order_date BETWEEN '2024-03-01' AND '2024-03-31'
+- "Revenue by category" → JOIN orders + products, GROUP BY category
+- "How many orders per customer" → GROUP BY customer_id, COUNT(order_id)
+- "Most expensive product" → ORDER BY price DESC LIMIT 1
+- "Customers from India" → WHERE country = 'India'
+- "Total revenue" → SUM(quantity * price) across all orders

@@ -1,0 +1,28 @@
+# API Keys — NEVER upload
+.env
+
+# Virtual Environment
+venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Database file
+database/company.db
+*.db
+
+# FAISS index — auto generated
+faiss_index/
+
+# Test files
+test_outputs/
+test_step*.py
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
